@@ -8,7 +8,6 @@ use app\models\Tag;
 use Yii;
 use app\models\post\Post;
 use app\models\post\PostSearch;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -93,8 +92,8 @@ class PostController extends Controller
         return $this->render(
             'admin',
             [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel'  => $searchModel,
+                'dataProvider' => $dataProvider,
             ]
         );
     }
@@ -124,12 +123,7 @@ class PostController extends Controller
 
         $model->countHits(Material::MATERIAL_POST_NAME);
 
-        return $this->render(
-            'view',
-            [
-            'model' => $model
-            ]
-        );
+        return $this->render('view', ['model' => $model]);
     }
 
     /**
@@ -152,14 +146,9 @@ class PostController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['post/view', 'slug' => $model->slug]);
-        } else {
-            return $this->render(
-                'create',
-                [
-                'model' => $model,
-                ]
-            );
         }
+
+        return $this->render('create', ['model' => $model]);
     }
 
     /**
@@ -188,15 +177,12 @@ class PostController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['post/view', 'slug' => $model->slug]);
-        } else {
-            return $this->render(
-                'update',
-                [
-                'model' => $model,
-                ]
-            );
+            return $this->redirect(['post/admin', 'slug' => $model->slug]);
         }
+
+        return $this->render(
+        'update', ['model' => $model]
+        );
     }
 
     /**
@@ -293,11 +279,10 @@ class PostController extends Controller
      */
     protected function findModel($id)
     {
-
         if (($model = Post::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('Запись не найдена.');
         }
+
+        throw new NotFoundHttpException('Запись не найдена.');
     }
 }

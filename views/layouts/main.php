@@ -31,12 +31,12 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#8fca58">
-    <meta name="msapplication-TileColor" content="#8fca58">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#1d1d1d">
+    <meta name="msapplication-TileColor" content="#1d1d1d">
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
@@ -48,7 +48,7 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
 
         NavBar::begin(
             [
-                'brandLabel' => Html::img('/img/rooland-logo.png'),
+                'brandLabel' => Html::img('/img/logo.jpg'),
                 'options'    => [
                     'class' => 'navbar-inverse',
                 ],
@@ -56,19 +56,17 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
         );
 
         $menuItems[] = ['label' => \Yii::t('app/blog', 'menu_label_index_blog'), 'url' => ['/post/index']];
-        $menuItems[] = ['label' => \Yii::t('app/video', 'menu_label_video_index'), 'url' => ['/video/index']];
-        $menuItems[] = ['label' => \Yii::t('app/deals', 'menu_label_deals_index'), 'url' => ['/deals/index']];
-        $menuItems[] = ['label' => \Yii::t('app/forum', 'menu_label_forum_index'), 'url' => ['/forum/index']];
+        //$menuItems[] = ['label' => \Yii::t('app/forum', 'menu_label_forum_index'), 'url' => ['/forum/index']];
 
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => \Yii::t('app', 'menu_label_login'), 'url' => ['/login']];
         } else {
             $menuItems[] = [
                 'label' => \Yii::t('app', 'menu_label_panel'), 'items' => [
-                    [
-                        'label' => \Yii::t('app/forum', 'menu_label_forum_my'),
-                        'url' => ['/forum/my']
-                    ],
+//                    [
+//                        'label' => \Yii::t('app/forum', 'menu_label_forum_my'),
+//                        'url' => ['/forum/my']
+//                    ],
                     [
                         'label' => \Yii::t('app', 'menu_label_profile'),
                         'url' => ['/user/view', 'id' => \Yii::$app->user->id]
@@ -79,21 +77,11 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
                         'url' => ['/post/admin'],
                         'visible' => UserPermissions::canAdminPost()
                     ],
-                    [
-                        'label' => \Yii::t('app/video', 'menu_label_video_admin'),
-                        'url' => ['/video/admin'],
-                        'visible' => UserPermissions::canAdminVideo()
-                    ],
-                    [
-                        'label' => \Yii::t('app/deals', 'menu_label_deals_admin'),
-                        'url' => ['/deals/admin'],
-                        'visible' => UserPermissions::canAdminDeals()
-                    ],
-                    [
-                        'label' => \Yii::t('app/forum', 'menu_label_forum_admin'),
-                        'url' => ['/forum/admin'],
-                        'visible' => UserPermissions::canAdminForum()
-                    ],
+//                    [
+//                        'label' => \Yii::t('app/forum', 'menu_label_forum_admin'),
+//                        'url' => ['/forum/admin'],
+//                        'visible' => UserPermissions::canAdminForum()
+//                    ],
                     [
                         'label' => \Yii::t('app/comments', 'menu_label_admin_comments'),
                         'url' => ['/comment-admin/manage/index'],

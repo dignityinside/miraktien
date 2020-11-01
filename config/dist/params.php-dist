@@ -28,7 +28,7 @@ return [
         'preModeration' => true,
         'pageSize' => 6
     ],
-    'siteName' => 'Руланд блог',
+    'siteName' => 'miraktien',
     'deals' => [
         'userId' => 1,
         'preModeration' => true,
@@ -48,9 +48,9 @@ return [
         'bitshares'   => '',
     ],
     'social' => [
-        'telegram' => 'roolandorg',
-        'instagram' => 'roolandorg',
-        'mastodon' => 'roolandorg',
-        'twitter' => 'roolandorg',
+        'telegram' => 'miraktien',
+        'instagram' => 'miraktien',
+        'mastodon' => 'miraktien',
+        'twitter' => 'miraktien',
     ],
 ];

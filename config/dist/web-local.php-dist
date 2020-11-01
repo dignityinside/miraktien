@@ -2,7 +2,7 @@
 
 $params = require(__DIR__ . '/params.php');
 
-$params['siteName'] = 'Руланд local';
+$params['siteName'] = 'miraktien local';
 
 // testing keys for reCAPTCHA purposes by Google
 $params['reCAPTCHA.siteKey'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
@@ -21,7 +21,7 @@ $config = [
         ],
         'db'                   => require(__DIR__ . '/db-local.php'),
         'urlManager'           => [
-            'baseUrl' => 'http://rooland.local:8025/',
+            'baseUrl' => 'http://miraktien.local:8025/',
         ],
     ],
     'modules' => [

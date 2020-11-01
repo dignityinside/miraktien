@@ -8,6 +8,8 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Пользователи';
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="user-index">
 
@@ -31,9 +33,9 @@ $this->title = 'Пользователи';
                 'email:email',
                 [
                     'format' => 'raw',
-                    'label'  => 'GitHub',
+                    'label'  => 'Premium',
                     'value'  => function ($model) {
-                        return Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl());
+                        return $model->premium ? 'Да' : 'Нет';
                     }
                 ],
                 [

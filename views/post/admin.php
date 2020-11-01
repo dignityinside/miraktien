@@ -48,13 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
+                    'attribute' => 'premium',
+                    'label'     => 'Premium',
+                    'value'     => function ($model) {
+                        return $model->premium ? 'Да' : 'Нет';
+                    }
+                ],
+                [
                     'attribute' => 'ontop',
                     'label'     => 'На главной',
                     'value'     => function ($model) {
                         return $model->ontop ? 'Да' : 'Нет';
                     }
                 ],
-
                 [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {update} {delete}',

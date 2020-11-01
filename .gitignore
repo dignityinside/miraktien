@@ -26,4 +26,4 @@ Thumbs.db
 /web/img/posts
 
 # nginx production file
-server/nginx/conf.d/rooland.conf
+server/nginx/conf.d/site.conf

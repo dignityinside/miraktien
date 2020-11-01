@@ -21,7 +21,7 @@ $this->registerMetaTag(
 <div class="post-index">
 
     <div class="post-header text-center">
-        <h1><i class="fas fa-feather"></i> Руланд блог</h1>
+        <h1><i class="fas fa-feather"></i> Блог <?=\Yii::$app->params['siteName'];?></h1>
     </div>
 
     <ul class="post-filter">
@@ -34,7 +34,7 @@ $this->registerMetaTag(
     <?= ListView::widget(
         [
             'dataProvider' => $dataProvider,
-            'emptyText'    => 'Записи не найдены.',
+            'emptyText'    => 'Статьи не найдены.',
             'itemView'     => '_view',
             'layout' => "{items}{pager}",
         ]

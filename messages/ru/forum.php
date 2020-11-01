@@ -19,7 +19,7 @@ return [
     'breadcrumbs_forum_my'           => 'Мои темы',
     'page_forum_create_title'        => 'Новая тема',
     // views/forum/index
-    'page_forum_index_title'         => 'Руланд форум',
+    'page_forum_index_title'         => 'Форум',
     'forum_button_new_topic'         => 'Новая тема',
     'forum_button_new_topics'        => 'Новые темы',
     'forum_button_no_answer'         => 'Без ответов',
@@ -30,7 +30,7 @@ return [
     // views/forum/topics
     'forum_category_list_empty_text' => 'Разделы форума не найдены.',
     'forum_new_topics_text'          => 'Новые темы',
-    'page_forum_topic_title'         => 'Руланд форум',
+    'page_forum_topic_title'         => 'Форум',
     'forum_sort_no_answer'           => 'Без ответов',
     // views/forum/user
     'forum_user_topics'              => 'Темы пользователя',

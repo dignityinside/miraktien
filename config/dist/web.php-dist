@@ -2,7 +2,7 @@
 
 $config = [
     'id'           => 'app',
-    'name'         => 'rooland',
+    'name'         => 'miraktien',
     'basePath'     => dirname(__DIR__),
     'aliases'      => [
         '@bower' => '@vendor/bower-asset',
@@ -64,16 +64,6 @@ $config = [
                 '<_c:[\w\-]+>/update/<id:\d+>'                                                        => '<_c>/update',
                 '<_c:[\w\-]+>/delete/<id:\d+>'                                                        => '<_c>/delete',
                 '<_c:[\w\-]+>/<_a:[\w\-]+>/<id:\d+>'                                                  => '<_c>/<_a>',
-                // video
-                'video/<_a:(admin|create|update|delete)>' => 'video/<_a>',
-                'video/watch/<id:\d+>' => 'video/watch',
-                'video/category/<categoryName:[\w\-]+>' => 'video/category',
-                'video/<sortBy:[\w\-]+>' => 'video/index',
-                // deals
-                'deals/<_a:(admin|create|update|delete)>' => 'deals/<_a>',
-                'deals/view/<id:\d+>' => 'deals/view',
-                'deals/category/<categoryName:[\w\-]+>' => 'deals/category',
-                'deals/<sortBy:[\w\-]+>' => 'deals/index',
                 // forum
                 'forum/<_a:(my|admin|update|delete|index)>' => 'forum/<_a>',
                 'forum/topic/<id:\d+>' => 'forum/topic',
@@ -90,7 +80,7 @@ $config = [
                     'class' => 'app\components\PostUrlRule',
                 ]
             ],
-            'baseUrl' => 'https://rooland.org',
+            'baseUrl' => 'https://miraktien.org',
         ],
         'comment'              => require(__DIR__ . '/comments.php'),
         'i18n' => [

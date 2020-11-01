@@ -1,6 +1,6 @@
-# rooland
+# miraktien
 
-Source code of the rooland blog.
+Source code of the miraktien blog.
 
 ## Technology
 
@@ -15,8 +15,8 @@ Source code of the rooland blog.
 ## Clone project via GIT
 
 ```
-git clone https://github.com/dignityinside/rooland
-cd rooland
+git clone https://github.com/dignityinside/miraktien
+cd miraktien
 ```
 
 #### Install Docker (Ubuntu-Linux)
@@ -51,12 +51,12 @@ su - <username>
 #### Add new hosts to your `hosts` File:
 
 ```
-127.0.0.1 rooland.local
+127.0.0.1 miraktien.local
 ```
 
 #### Development links
 ```
-http://rooland.local:8025
+http://miraktien.local:8025
 ```
 
 ## Install all dependencies via Composer

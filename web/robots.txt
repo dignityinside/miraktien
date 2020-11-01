@@ -5,10 +5,6 @@ Disallow: /*sort=
 Disallow: /contact
 Disallow: /signup
 Disallow: /post/index
-Disallow: /video/index
-Disallow: /video/category/*
-Disallow: /deals/index
-Disallow: /deals/category/*
 Disallow: /forum/index
 Disallow: /forum/topics
 Disallow: /forum/user/*
@@ -16,5 +12,5 @@ Disallow: /user/*
 Disallow: /?p=*
 Disallow: /category/*
 Disallow: /tag/*
-Host: rooland.org
-Sitemap: https://rooland.org/sitemap.xml
+Host: miraktien.com
+Sitemap: https://miraktien.com/sitemap.xml

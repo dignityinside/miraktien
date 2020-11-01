@@ -4,11 +4,11 @@ server {
 
     listen 443 ssl;
 
-    root /var/www/rooland/web;
+    root /var/www/miraktien/web;
 
     index index.php;
 
-    server_name rooland.org;
+    server_name miraktien.com;
 
     charset utf-8;
 
@@ -47,9 +47,9 @@ server {
 
     listen 80;
 
-    server_name rooland.org;
+    server_name miraktien.com;
 
-    if ($host = rooland.org) {
+    if ($host = miraktien.com) {
         return 301 https://$host$request_uri;
     }
 
@@ -59,8 +59,8 @@ server {
 
 server {
 
-    server_name  www.rooland.org;
+    server_name  www.miraktien.com;
 
-    rewrite ^(.*) http://rooland.org$1 permanent;
+    rewrite ^(.*) http://miraktien.com$1 permanent;
 
 }

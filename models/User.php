@@ -22,7 +22,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
- * @property string $github
+ * @property string $premium
  *
  * @property Auth[] $auths
  */
@@ -90,6 +90,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         $scenarios[self::SCENARIO_ADMIN] = [
             'status',
+            'premium',
         ];
 
         return $scenarios;
@@ -250,6 +251,7 @@ class User extends ActiveRecord implements IdentityInterface
             'email'          => 'E-Mail',
             'status'         => 'Статус',
             'created_at'     => 'Создан в',
+            'premium'        => 'Premium',
         ];
     }
 
@@ -274,14 +276,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuths()
     {
         return $this->hasMany(Auth::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return string GitHub profile URL or null if user isn't connected with GitHub
-     */
-    public function getGithubProfileUrl()
-    {
-        return $this->github ? 'http://github.com/' . $this->github : null;
     }
 
     /**

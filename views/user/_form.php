@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
 
     <?php if (UserPermissions::canAdminUsers()) : ?>
         <?= $form->field($model, 'status')->dropDownList(\app\models\User::getStatuses()) ?>
+        <?= $form->field($model, 'premium')->dropDownList([0 => 'Нет', 1 => 'Да']) ?>
     <?php endif ?>
 
     <div class="form-group">

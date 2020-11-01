@@ -21,13 +21,6 @@ $this->registerMetaTag(
     ]
 );
 
-$this->registerMetaTag(
-    [
-        'name'    => 'keywords',
-        'content' => $model->meta_keywords,
-    ]
-);
-
 ?>
 <div class="post-view">
 
@@ -38,17 +31,25 @@ $this->registerMetaTag(
             <?= Html::a('Изменить', ['post/update', 'id' => $model->id]); ?></p>
     <?php endif; ?>
 
-    <?= Text::hidecut(HtmlPurifier::process(Markdown::process($model->content, 'gfm'))); ?>
+    <?php if ($model->isPremium()) : ?>
+        <?= Text::hidecut(HtmlPurifier::process(Markdown::process($model->content, 'gfm'))); ?>
+    <?php else : ?>
+        <?= Text::cut(HtmlPurifier::process(Markdown::process($model->content, 'gfm'))); ?>
+        <div class="alert alert-danger">
+            Необходимо получить премиум доступ, чтобы читать данную статью полностью!
+        </div>
+    <?php endif; ?>
 
-    <?= $this->render('/partials/share'); ?>
+    <?php if ($model->show_share_buttons) : ?>
+        <?= $this->render('/partials/share'); ?>
+    <?php endif; ?>
 
-    <?= $this->render(
-        '_post_footer',
-        [
-            'model' => $model
-        ]
-    ); ?>
+    <?php if ($model->show_post_details) : ?>
+        <?= $this->render('_post_footer', ['model' => $model]); ?>
+    <?php endif; ?>
 
-    <?= $this->render('_comments', ['model' => $model]); ?>
+    <?php if ($model->allow_comments && $model->isPremium()) : ?>
+        <?= $this->render('_comments', ['model' => $model]); ?>
+    <?php endif; ?>
 
 </div>

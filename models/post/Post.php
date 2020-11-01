@@ -23,9 +23,11 @@ use app\models\Tag;
  * @property integer $hits
  * @property string  $allow_comments
  * @property integer $ontop
- * @property string  $meta_keywords
+ * @property string  $premium
  * @property string  $meta_description
  * @property integer $category_id
+ * @property integer $show_share_buttons
+ * @property integer $show_post_details
  *
  * relations
  * @property Tag[] $tags
@@ -57,9 +59,9 @@ class Post extends Material
         return [
             [['title', 'content', 'datecreate', 'dateupdate', 'user_id', 'hits', 'ontop', 'category_id'], 'required'],
             [['content', 'allow_comments', 'slug'], 'string'],
-            [['status_id', 'datecreate', 'dateupdate', 'user_id', 'hits', 'ontop', 'category_id'], 'integer'],
+            [['status_id', 'datecreate', 'dateupdate', 'user_id', 'hits', 'ontop', 'category_id', 'show_share_buttons', 'show_post_details'], 'integer'],
             [['title'], 'string', 'max' => 69],
-            [['meta_keywords'], 'string', 'max' => 256],
+            [['premium', 'show_share_buttons', 'show_post_details'], 'string', 'max' => 1],
             [['meta_description'], 'string', 'max' => 156],
             [['form_tags'], 'safe'],
         ];
@@ -97,11 +99,13 @@ class Post extends Material
             'allow_comments',
             'status_id',
             'ontop',
-            'meta_keywords',
             'meta_description',
             'slug',
             'form_tags',
-            'category_id'
+            'category_id',
+            'premium',
+            'show_share_buttons',
+            'show_post_details',
         ];
 
         return $scenarios;
@@ -114,21 +118,23 @@ class Post extends Material
     {
 
         return [
-            'id'               => 'ID',
-            'title'            => 'Заголовок',
-            'content'          => 'Текст',
-            'status_id'        => 'Статус',
-            'datecreate'       => 'Дата публикации',
-            'dateupdate'       => 'Дата обновления',
-            'user_id'          => 'ID Автора',
-            'hits'             => 'Просмотров',
-            'allow_comments'   => 'Разрешить комментарии',
-            'ontop'            => 'На главную',
-            'meta_keywords'    => 'Ключевые слова (meta-keywords)',
-            'meta_description' => 'Описание страницы (meta-description)',
-            'slug'             => 'Постоянная ссылка',
-            'form_tags'        => 'Тэги',
-            'category_id'      => 'Категория'
+            'id'                 => 'ID',
+            'title'              => 'Заголовок',
+            'content'            => 'Текст',
+            'status_id'          => 'Статус',
+            'datecreate'         => 'Дата публикации',
+            'dateupdate'         => 'Дата обновления',
+            'user_id'            => 'ID Автора',
+            'hits'               => 'Просмотров',
+            'allow_comments'     => 'Разрешить комментарии',
+            'ontop'              => 'На главную',
+            'meta_description'   => 'Описание страницы (meta-description)',
+            'slug'               => 'Постоянная ссылка',
+            'form_tags'          => 'Тэги',
+            'category_id'        => 'Категория',
+            'premium'            => 'Premium',
+            'show_share_buttons' => 'Показывать блок "поделиться"',
+            'show_post_details'  => 'Показать подробную информацию',
         ];
     }
 
@@ -200,6 +206,27 @@ class Post extends Material
     {
         return $this->hasOne(Category::class, ['id' => 'category_id'])
                     ->andOnCondition(['material_id' => Material::MATERIAL_POST_ID]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPremium(): bool
+    {
+
+        if ($this->premium) {
+
+            if (\Yii::$app->user->identity === null) {
+                return false;
+            }
+
+            if (!\Yii::$app->user->identity->premium) {
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
     /**

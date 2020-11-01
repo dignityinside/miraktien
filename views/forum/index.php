@@ -22,7 +22,7 @@ ForumAsset::register($this);
 
     <p class="text-center">
         <?= Html::a('<i class="fas fa-plus"></i> ' . \Yii::t('app/forum', 'forum_button_new_topic'),
-            ['create'], ['class' => 'btn btn-success']); ?>
+            ['create'], ['class' => 'btn btn-primary']); ?>
         <?= Html::a('<i class="fa fa-clock"></i> ' . \Yii::t('app/forum', 'forum_button_new_topics'),
             ['topics', 'categoryName' => 'new'],
             ['class' => 'btn btn-default']); ?>

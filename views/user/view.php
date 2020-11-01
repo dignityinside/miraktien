@@ -24,9 +24,8 @@ $this->title = $model->username;
                 </div>
 
                 <h1><?= Html::encode($this->title) ?></h1>
-                <?php if ($model->getGithubProfileUrl() !== null) : ?>
-                    <h3><?= Html::a(Html::encode($model->getGithubProfileUrl()), $model->getGithubProfileUrl()) ?></h3>
-                <?php endif ?>
+
+                <h3><?= Html::encode($model->premium ? 'Premium' : ''); ?></h3>
 
                 <?php if (UserPermissions::canEditUser($model)) : ?>
                     <p>

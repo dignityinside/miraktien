@@ -36,7 +36,10 @@ $this->registerMetaTag(
     <?php else : ?>
         <?= Text::cut(HtmlPurifier::process(Markdown::process($model->content, 'gfm'))); ?>
         <div class="alert alert-danger">
-            Необходимо получить премиум доступ, чтобы читать данную статью полностью!
+            Скрытое содержимое могут видеть только премиум пользователи.
+            <?php if (\Yii::$app->user->identity === null) : ?>
+                <?= Html::a('Уже премиум? Войди на сайт!', '/login') ?>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 

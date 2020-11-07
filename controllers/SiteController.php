@@ -12,7 +12,6 @@ use app\components\AuthHandler;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
-use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 

@@ -125,9 +125,9 @@ class ForumController extends Controller
 
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['forum/my']);
-        } else {
-            return $this->render('create', ['model' => $model, 'categoryId' => $categoryId]);
         }
+
+        return $this->render('create', ['model' => $model, 'categoryId' => $categoryId]);
     }
 
     /**
@@ -155,9 +155,9 @@ class ForumController extends Controller
 
         if ($model->load(\Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['/forum/topic', 'id' => $model->id]);
-        } else {
-            return $this->render('update', ['model' => $model,]);
         }
+
+        return $this->render('update', ['model' => $model,]);
     }
 
     /**

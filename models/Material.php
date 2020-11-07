@@ -45,7 +45,7 @@ class Material extends ActiveRecord
     /** @var array */
     public const MATERIAL_MAPPING = [
         self::MATERIAL_POST_ID => self::MATERIAL_POST_NAME,
-        self::MATERIAL_FORUM_ID => self::MATERIAL_FORUM_NAME,
+        //self::MATERIAL_FORUM_ID => self::MATERIAL_FORUM_NAME,
     ];
 
     /** @var int Count of all comments */

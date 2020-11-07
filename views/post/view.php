@@ -37,9 +37,12 @@ $this->registerMetaTag(
         <?= Text::cut(HtmlPurifier::process(Markdown::process($model->content, 'gfm'))); ?>
         <div class="alert alert-danger">
             Скрытое содержимое могут видеть только премиум пользователи.
-            <?php if (\Yii::$app->user->identity === null) : ?>
-                <?= Html::a('Уже премиум? Войди на сайт!', '/login') ?>
-            <?php endif; ?>
+            <p>
+                <?php if (\Yii::$app->user->identity === null) : ?>
+                    <?= Html::a('Уже премиум? Войди на сайт!', '/login') ?> |
+                <?php endif; ?>
+                <?= Html::a('Получить премиум', '/premium') ?>
+            </p>
         </div>
     <?php endif; ?>
 

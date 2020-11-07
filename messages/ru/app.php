@@ -8,6 +8,7 @@
 return [
     // views/layouts/main
     'menu_label_login'         => 'Войти',
+    'menu_label_premium'       => 'Премиум',
     'menu_label_panel'         => 'Панель',
     'menu_label_profile'       => 'Профиль',
     'menu_label_user_admin'    => 'Пользователи',

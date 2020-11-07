@@ -108,12 +108,6 @@ php yii rbac/assign moderator dignity
 php yii sitemap
 ```
 
-## Fetch new videos
-
-```
-php yii video
-```
-
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 

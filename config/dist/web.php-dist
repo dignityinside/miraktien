@@ -64,16 +64,6 @@ $config = [
                 '<_c:[\w\-]+>/update/<id:\d+>'                                                        => '<_c>/update',
                 '<_c:[\w\-]+>/delete/<id:\d+>'                                                        => '<_c>/delete',
                 '<_c:[\w\-]+>/<_a:[\w\-]+>/<id:\d+>'                                                  => '<_c>/<_a>',
-                // forum
-                'forum/<_a:(my|admin|update|delete|index)>' => 'forum/<_a>',
-                'forum/topic/<id:\d+>' => 'forum/topic',
-                'forum/user/<userName:[\w\-]+>' => 'forum/user',
-                'forum/<_a:(create|update|delete)>/<id:\d+>' => 'forum/<_a>',
-                [
-                    'pattern' => 'forum/topics/<categoryName:[\w\-]+>/<sortBy:[\w\-]+>',
-                    'route' => 'forum/topics',
-                    'defaults' => ['sortBy' => ''],
-                ],
                 // tags
                 'tag/search' => 'tag/search',
                 [
@@ -91,7 +81,6 @@ $config = [
                     'fileMap' => [
                         'app' => 'app.php',
                         'app/blog' => 'blog.php',
-                        'app/forum' => 'forum.php',
                         'app/comments' => 'comments.php',
                         'app/category' => 'category.php',
                     ],

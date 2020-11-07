@@ -11,10 +11,6 @@ return [
     // Material types list
     'types'              => [
         1 => 'Post',
-        2 => '', // not used
-        3 => '', // not used
-        4 => '', // not used
-        5 => 'Forum',
     ],
     // Anonymous function to get user display name
     'getUsername'        => function (Comment $comment) {

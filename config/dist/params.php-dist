@@ -24,10 +24,6 @@ return [
     'post' => [
         'pageSize' => 6,
     ],
-    'forum' => [
-        'preModeration' => false,
-        'pageSize' => 10,
-    ],
     'social' => [
         'telegram' => 'miraktien',
         'instagram' => 'miraktien',

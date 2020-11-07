@@ -46,10 +46,6 @@ class RbacController extends Controller
         $adminCategory->description = 'Administrate categories';
         $auth->add($adminCategory);
 
-        $adminForum = $auth->createPermission(UserPermissions::ADMIN_FORUM);
-        $adminForum->description = 'Administrate forum';
-        $auth->add($adminForum);
-
         $admin = $auth->createRole('admin');
         $admin->description = 'Administrator';
 
@@ -57,7 +53,6 @@ class RbacController extends Controller
         $auth->addChild($admin, $adminUsers);
         $auth->addChild($admin, $adminPost);
         $auth->addChild($admin, $adminCategory);
-        $auth->addChild($admin, $adminForum);
     }
 
     /**

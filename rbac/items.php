@@ -12,10 +12,6 @@ return [
         'type' => 2,
         'description' => 'Administrate categories',
     ],
-    'adminForum' => [
-        'type' => 2,
-        'description' => 'Administrate forum',
-    ],
     'admin' => [
         'type' => 1,
         'description' => 'Administrator',
@@ -23,7 +19,6 @@ return [
             'adminUsers',
             'adminPost',
             'adminCategory',
-            'adminForum',
         ],
     ],
 ];

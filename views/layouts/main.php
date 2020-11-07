@@ -56,17 +56,12 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
         );
 
         $menuItems[] = ['label' => \Yii::t('app/blog', 'menu_label_index_blog'), 'url' => ['/post/index']];
-        //$menuItems[] = ['label' => \Yii::t('app/forum', 'menu_label_forum_index'), 'url' => ['/forum/index']];
 
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => \Yii::t('app', 'menu_label_login'), 'url' => ['/login']];
         } else {
             $menuItems[] = [
                 'label' => \Yii::t('app', 'menu_label_panel'), 'items' => [
-//                    [
-//                        'label' => \Yii::t('app/forum', 'menu_label_forum_my'),
-//                        'url' => ['/forum/my']
-//                    ],
                     [
                         'label' => \Yii::t('app', 'menu_label_profile'),
                         'url' => ['/user/view', 'id' => \Yii::$app->user->id]
@@ -77,11 +72,6 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
                         'url' => ['/post/admin'],
                         'visible' => UserPermissions::canAdminPost()
                     ],
-//                    [
-//                        'label' => \Yii::t('app/forum', 'menu_label_forum_admin'),
-//                        'url' => ['/forum/admin'],
-//                        'visible' => UserPermissions::canAdminForum()
-//                    ],
                     [
                         'label' => \Yii::t('app/comments', 'menu_label_admin_comments'),
                         'url' => ['/comment-admin/manage/index'],

@@ -8,17 +8,13 @@
 
 use yii\helpers\Html;
 
-$this->title = Html::encode($name);
+$this->title = 'Ошибка 404 - Нет такой страницы';
 
 ?>
 <div class="site-error">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
-
-    <p>Системе не удалось найти запрашиваемое действие.</p>
+    <p>Если вы считаете, что страницы нет по нашей вине, <a href="/contact">напишите нам</a>.</p>
 
 </div>

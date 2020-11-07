@@ -48,20 +48,6 @@ $this->title = $model->username;
                     </p>
                 <?php endif ?>
             </div>
-            <?php if (count($authClients) > 0) : ?>
-                <div class="col-sm-4">
-                    <div class="well well-sm">
-                        <h2>Присоединить дополнительные профили:</h2>
-                        <?= yii\authclient\widgets\AuthChoice::widget(
-                            [
-                                'baseAuthUrl' => ['site/auth'],
-                                'popupMode'   => false,
-                                'clients'     => $authClients,
-                            ]
-                        ) ?>
-                    </div>
-                </div>
-            <?php endif ?>
         </div>
     </div>
 </div>

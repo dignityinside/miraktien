@@ -14,6 +14,7 @@ return [
     'logout_({username})'      => 'Выйти ({username})',
     'footer_about_link'        => 'Об авторе',
     'footer_premium_link'      => 'Премиум',
+    'footer_contact_link'      => 'Обратная связь',
     // views/partials/share
     'share_friends'            => 'Порекомендуй друзьям:',
     'button_save'              => 'Сохранить',

@@ -13,7 +13,7 @@ return [
     'menu_label_profile'       => 'Профиль',
     'menu_label_user_admin'    => 'Пользователи',
     'logout_({username})'      => 'Выйти ({username})',
-    'footer_about_link'        => 'Об авторе',
+    'footer_about_link'        => 'О проекте',
     'footer_premium_link'      => 'Премиум',
     'footer_contact_link'      => 'Обратная связь',
     // views/partials/share

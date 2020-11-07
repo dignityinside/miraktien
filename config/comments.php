@@ -12,8 +12,8 @@ return [
     'types'              => [
         1 => 'Post',
         2 => '', // not used
-        3 => 'Video',
-        4 => 'Deals',
+        3 => '', // not used
+        4 => '', // not used
         5 => 'Forum',
     ],
     // Anonymous function to get user display name
@@ -85,7 +85,9 @@ return [
         if (Yii::$app->has('user') && Yii::$app->user->can('admin')) {
             // Admin can edit any comment
             return true;
-        } elseif ($comment->isAnonymous) {
+        }
+
+        if ($comment->isAnonymous) {
             // Any non-admin user cannot edit any anon comment
             return false;
         }

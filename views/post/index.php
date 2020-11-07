@@ -24,11 +24,15 @@ $this->registerMetaTag(
         <h1><i class="fas fa-feather"></i> Блог <?=\Yii::$app->params['siteName'];?></h1>
     </div>
 
-    <ul class="post-filter">
-        <li><?= Html::a('<i class="fa fa-clock"></i>Новые', '/post/index') ?></li>
-        <li><?= Html::a('<i class="fa fa-eye"></i>Популярные', '/post/index/1') ?></li>
-        <li><?= Html::a('<i class="fa fa-comments"></i>Обсуждаемые', '/post/index/2') ?></li>
-    </ul>
+    <?php if ($dataProvider->getTotalCount() >= \Yii::$app->params['post']['pageSize']) : ?>
+
+        <ul class="post-filter">
+            <li><?= Html::a('<i class="fa fa-clock"></i>Новые', '/post/index') ?></li>
+            <li><?= Html::a('<i class="fa fa-eye"></i>Популярные', '/post/index/1') ?></li>
+            <li><?= Html::a('<i class="fa fa-comments"></i>Обсуждаемые', '/post/index/2') ?></li>
+        </ul>
+
+    <?php endif; ?>
 
     <?php Pjax::begin(); ?>
     <?= ListView::widget(

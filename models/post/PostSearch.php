@@ -63,7 +63,7 @@ class PostSearch extends Post
             [
                 'query' => $query,
                 'pagination' => [
-                    'pageSize' => 6,
+                    'pageSize' => \Yii::$app->params['post']['pageSize'],
                 ],
             ]
         );

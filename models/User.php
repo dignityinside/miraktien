@@ -35,18 +35,7 @@ class User extends ActiveRecord implements IdentityInterface
     public const SCENARIO_UPDATE = 'update';
     public const SCENARIO_ADMIN = 'admin';
 
-    public const VISIBILITY_HIDE = 0;
-    public const VISIBILITY_REGISTER_USER_ONLY = 1;
-    public const VISIBILITY_ALL_USERS = 2;
-
     public $avatar_url = '';
-
-    /** @var array */
-    public $visibilityMapping = [
-        self::VISIBILITY_HIDE => 'Никому',
-        self::VISIBILITY_REGISTER_USER_ONLY => 'Только не зарегистированным пользователям',
-        self::VISIBILITY_ALL_USERS => 'Всем пользователям'
-    ];
 
     /**
      * @inheritdoc
@@ -276,15 +265,5 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuths()
     {
         return $this->hasMany(Auth::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * Returns ads visibility mapping
-     *
-     * @return array
-     */
-    public function getAdsVisibility()
-    {
-        return $this->visibilityMapping;
     }
 }

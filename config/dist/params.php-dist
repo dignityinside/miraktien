@@ -20,37 +20,16 @@ return [
     'sharpayAppId'                  => '',
     'googleSiteVerification'        => '',
     'yandexVerification'            => '',
-    'video' => [
-        'youtubeFeeds' => [
-            'https://www.youtube.com/feeds/videos.xml?user=dignityinside' => 'Александр Шиллинг',
-        ],
-        'userId' => 1,
-        'preModeration' => true,
-        'pageSize' => 6
-    ],
     'siteName' => 'miraktien',
-    'deals' => [
-        'userId' => 1,
-        'preModeration' => true,
+    'post' => [
         'pageSize' => 6,
-        'cbr' => [
-            'USD' => 66.44,
-            'EUR' => 75.63
-        ],
     ],
     'forum' => [
         'preModeration' => false,
         'pageSize' => 10,
     ],
-    'donate' => [
-        'yandexMoney' => '',
-        'paypal'      => '',
-        'bitshares'   => '',
-    ],
     'social' => [
         'telegram' => 'miraktien',
         'instagram' => 'miraktien',
-        'mastodon' => 'miraktien',
-        'twitter' => 'miraktien',
     ],
 ];

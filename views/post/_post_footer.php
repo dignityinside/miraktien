@@ -11,9 +11,12 @@ use app\helpers\Text;
 
     <i class="fa fa-clock-o"></i> <?= date('d.m.Y', Html::encode($model->datecreate)); ?>
 
-    <?php if ($model->allow_comments) : ?>
-        <i class="fa fa-comments"></i> <?= Html::encode($model->commentsCount); ?>
+    <?php if ($model->commentsAllowed()) : ?>
+        <?php if ($model->commentsCount >= 1) : ?>
+            <i class="fa fa-comments"></i> <?= Html::encode($model->commentsCount); ?>
+        <?php endif; ?>
     <?php endif; ?>
+
 
     <?php if (isset($model->category->name)) : ?>
         <i class="fa fa-folder"></i> <?= Html::a($model->category->name, '/category/' . $model->category->slug); ?>

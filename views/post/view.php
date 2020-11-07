@@ -51,7 +51,7 @@ $this->registerMetaTag(
         <?= $this->render('_post_footer', ['model' => $model]); ?>
     <?php endif; ?>
 
-    <?php if ($model->allow_comments && $model->isPremium()) : ?>
+    <?php if ($model->commentsAllowed()) : ?>
         <?= $this->render('_comments', ['model' => $model]); ?>
     <?php endif; ?>
 

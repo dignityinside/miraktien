@@ -21,7 +21,7 @@ use app\models\Tag;
  * @property integer $dateupdate
  * @property integer $user_id
  * @property integer $hits
- * @property string  $allow_comments
+ * @property bool    $allow_comments
  * @property integer $ontop
  * @property string  $premium
  * @property string  $meta_description
@@ -227,6 +227,28 @@ class Post extends Material
         }
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function commentsAllowed(): bool
+    {
+
+        // not premium post
+
+        if (!$this->premium) {
+            return $this->allow_comments;
+        }
+
+        // premium post, check premium user status
+
+        if (!$this->isPremium()) {
+            return false;
+        }
+
+        return $this->allow_comments;
+
     }
 
     /**

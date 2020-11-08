@@ -57,46 +57,52 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
 
         $menuItems[] = ['label' => \Yii::t('app/blog', 'menu_label_index_blog'), 'url' => ['/post/index']];
 
+        $menuItems[] = ['label' => \Yii::t('app', 'menu_label_premium'), 'url' => ['/premium']];
+
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => \Yii::t('app', 'menu_label_login'), 'url' => ['/login']];
-            $menuItems[] = ['label' => \Yii::t('app', 'menu_label_premium'), 'url' => ['/premium']];
         } else {
+
             $menuItems[] = [
-                'label' => \Yii::t('app', 'menu_label_panel'), 'items' => [
-                    [
-                        'label' => \Yii::t('app', 'menu_label_profile'),
-                        'url' => ['/user/view', 'id' => \Yii::$app->user->id]
+                'label' => \Yii::t('app', 'menu_label_profile'),
+                'url' => ['/user/view', 'id' => \Yii::$app->user->id]
+            ];
+
+            if (Yii::$app->user->can('admin')) {
+
+                $menuItems[] = [
+                    'label' => \Yii::t('app', 'menu_label_panel'), 'items' => [
+                        [
+                            'label' => \Yii::t('app/blog', 'menu_label_admin_blog'),
+                            'url' => ['/post/admin'],
+                            'visible' => UserPermissions::canAdminPost()
+                        ],
+                        [
+                            'label' => \Yii::t('app/comments', 'menu_label_admin_comments'),
+                            'url' => ['/comment-admin/manage/index'],
+                            'visible' => UserPermissions::canAdminPost()
+                        ],
+                        [
+                            'label' => \Yii::t('app/category', 'menu_label_admin_category'),
+                            'url' => ['/category/admin'],
+                            'visible' => UserPermissions::canAdminCategory()
+                        ],
+                        [
+                            'label' => \Yii::t('app', 'menu_label_user_admin'),
+                            'url' => ['/user/admin'],
+                            'visible' => UserPermissions::canAdminUsers()
+                        ],
                     ],
-                    Yii::$app->user->can('admin') ? '<li class="divider"></li>' : '',
-                    [
-                        'label' => \Yii::t('app/blog', 'menu_label_admin_blog'),
-                        'url' => ['/post/admin'],
-                        'visible' => UserPermissions::canAdminPost()
-                    ],
-                    [
-                        'label' => \Yii::t('app/comments', 'menu_label_admin_comments'),
-                        'url' => ['/comment-admin/manage/index'],
-                        'visible' => UserPermissions::canAdminPost()
-                    ],
-                    [
-                        'label' => \Yii::t('app/category', 'menu_label_admin_category'),
-                        'url' => ['/category/admin'],
-                        'visible' => UserPermissions::canAdminCategory()
-                    ],
-                    [
-                        'label' => \Yii::t('app', 'menu_label_user_admin'),
-                        'url' => ['/user/admin'],
-                        'visible' => UserPermissions::canAdminUsers()
-                    ],
-                    Yii::$app->user->can('admin') ? '<li class="divider"></li>' : '',
-                    [
-                        'label' => \Yii::t('app', 'logout_({username})', [
-                            'username' => Yii::$app->user->identity->username,
-                        ]),
-                        'url' => ['/site/logout'],
-                        'linkOptions' => ['data-method' => 'post']
-                    ]
-                ],
+                ];
+
+            }
+
+            $menuItems[] = [
+                'label' => \Yii::t('app', 'logout_({username})', [
+                    'username' => Yii::$app->user->identity->username,
+                ]),
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']
             ];
         }
 

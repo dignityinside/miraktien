@@ -21,7 +21,7 @@ $this->registerMetaTag(
 <div class="post-index">
 
     <div class="post-header text-center">
-        <h1><i class="fas fa-feather"></i> Блог <?=\Yii::$app->params['siteName'];?></h1>
+        <h1><i class="fas fa-feather"></i> <?=\Yii::$app->params['siteName'];?></h1>
     </div>
 
     <?php if ($dataProvider->getTotalCount() >= \Yii::$app->params['post']['pageSize']) : ?>

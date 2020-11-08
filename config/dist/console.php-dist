@@ -16,6 +16,9 @@ $config = [
         'session' => [ // for use session in console application
             'class' => 'yii\web\Session'
         ],
+        'authManager'          => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
     ],
     'controllerMap' => [
         'sitemap' => [

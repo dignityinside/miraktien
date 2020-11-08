@@ -70,7 +70,7 @@ $config = [
                     'class' => 'app\components\PostUrlRule',
                 ]
             ],
-            'baseUrl' => 'https://miraktien.org',
+            'baseUrl' => 'https://miraktien.com',
         ],
         'comment'              => require(__DIR__ . '/comments.php'),
         'i18n' => [

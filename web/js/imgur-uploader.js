@@ -46,7 +46,7 @@ app.imgur_uploader = (function($, ClipboardJS) {
             type: 'POST',
             url: 'https://api.imgur.com/3/image.json',
             headers: {
-                Authorization: 'Client-ID 63b93949b8e65a4', // change this id for you app
+                Authorization: 'Client-ID eb46b6423924edc', // change this id for you app
                 Accept: 'application/json'
             },
             mimeType: 'multipart/form-data'

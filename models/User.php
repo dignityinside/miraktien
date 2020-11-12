@@ -236,11 +236,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id'             => 'ID',
-            'username'       => 'Имя пользователя',
-            'email'          => 'E-Mail',
-            'status'         => 'Статус',
-            'created_at'     => 'Создан в',
-            'premium'        => 'Premium',
+            'username'       => \Yii::t('app', 'username'),
+            'email'          => \Yii::t('app', 'email'),
+            'status'         => \Yii::t('app', 'status'),
+            'created_at'     => \Yii::t('app', 'created_at'),
+            'premium'        => \Yii::t('app', 'premium'),
         ];
     }
 
@@ -264,6 +264,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuths()
     {
-        return $this->hasMany(Auth::className(), ['user_id' => 'id']);
+        return $this->hasMany(Auth::class, ['user_id' => 'id']);
     }
 }

@@ -7,7 +7,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\SignupForm */
 
-$this->title = 'Регистрация';
+$this->title = \Yii::t('app', 'signup_title');;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="form-group">
                 <?= Html::submitButton(
-                    'Зарегистироваться',
+                    \Yii::t('app', 'button_register'),
                     ['class' => 'btn btn-primary', 'name' => 'signup-button']
                 ) ?>
                 <?= Html::a(
-                    'Войти',
+                    \Yii::t('app', 'button_login'),
                     ['site/login'],
                     ['class' => 'btn btn-light']
                 ) ?>

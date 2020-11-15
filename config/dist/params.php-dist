@@ -28,4 +28,8 @@ return [
         'telegram' => 'miraktien',
         'instagram' => 'miraktien',
     ],
+    'premium' => [
+        'price' => 599,
+        'freeMonth' => 2
+    ]
 ];

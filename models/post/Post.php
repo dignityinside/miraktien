@@ -258,14 +258,24 @@ class Post extends Material
      */
     public function afterSave($insert, $changedAttributes)
     {
-        // save tags
+
+        // no tags selected, remove current tags
+
+        if (($this->form_tags === '') && !$insert) {
+            PostTag::deleteAll(['post_id' => $this->id]);
+        }
+
+        // tags selected, save tags
+
         if (is_array($this->form_tags)) {
+
             if (!$insert) {
                 // Remove current tags
                 PostTag::deleteAll(['post_id' => $this->id]);
             }
 
             if (count($this->form_tags)) {
+
                 // form tags array
                 $tag_ids = [];
 
@@ -293,7 +303,9 @@ class Post extends Material
                         $data
                     )->execute();
                 }
+
             }
+
         }
 
         parent::afterSave($insert, $changedAttributes);

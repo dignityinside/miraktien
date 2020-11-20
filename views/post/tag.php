@@ -4,7 +4,7 @@ use \yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PostSearch */
+/* @var $searchModel app\models\post\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var string $tagName */
 

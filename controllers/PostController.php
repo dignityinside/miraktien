@@ -213,7 +213,7 @@ class PostController extends Controller
     public function actionTag($tagName)
     {
 
-        $tag = Tag::findOne(['name' => $tagName]);
+        $tag = Tag::findOne(['slug' => $tagName]);
 
         if (!$tag) {
             throw new NotFoundHttpException("Такой тэг не найден.");
@@ -226,9 +226,9 @@ class PostController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('tag', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'tagName' => $tag->name
+            'tagName'      => $tag->name
         ]);
     }
 

@@ -4,10 +4,13 @@ Disallow: /logout
 Disallow: /*sort=
 Disallow: /contact
 Disallow: /signup
-Disallow: /post/index
+Disallow: /post/*
 Disallow: /user/*
+Disallow: /site/*
+Disallow: /search
 Disallow: /?p=*
 Disallow: /category/*
 Disallow: /tag/*
+Crawl-Delay: 1
 Host: miraktien.com
 Sitemap: https://miraktien.com/sitemap.xml

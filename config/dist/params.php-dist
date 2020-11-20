@@ -8,7 +8,7 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'user.rememberMeDuration'       => 3600 * 24 * 30,
     /**
-     * Индентификатор Google reCaptcha
+     * Google reCaptcha ID
      * https://www.google.com/recaptcha/admin
      */
     'reCAPTCHA.siteKey'             => '',
@@ -26,5 +26,16 @@ return [
     'premium' => [
         'price' => 599,
         'freeMonth' => 2
-    ]
+    ],
+    /**
+    * MailerLite Subscription
+    * https://mailerlite.com
+    */
+    'subscribe' => [
+        'account'            => '',
+        'id'                 => '',
+        'dataAccount'        => '',
+        'dataFormSidebar'    => '',
+        'dataFormPostBottom' => '',
+    ],
 ];

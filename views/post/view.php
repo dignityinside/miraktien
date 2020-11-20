@@ -35,6 +35,14 @@ $this->registerMetaTag(
         <?= Text::hidecut('[cut]',
             Text::hideCut('[premium]', HtmlPurifier::process(Markdown::process($model->content, 'gfm')))
         ); ?>
+        <hr>
+        <p style="text-align: center">
+            <?= \Yii::t('app', 'subscribe_text') ?>
+        </p>
+        <div class="ml-form-embed"
+             data-account="<?= \Yii::$app->params['subscribe']['dataAccount']; ?>"
+             data-form="<?= \Yii::$app->params['subscribe']['dataFormPostBottom']; ?>">
+        </div>
     <?php else : ?>
         <?= Text::hidecut('[cut]',
             Text::cut('[premium]', HtmlPurifier::process(Markdown::process($model->content, 'gfm')))

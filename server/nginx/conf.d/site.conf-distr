@@ -1,9 +1,5 @@
 server {
 
-    access_log off;
-
-    listen 443 ssl;
-
     root /var/www/miraktien/web;
 
     index index.php;
@@ -14,17 +10,25 @@ server {
 
     index index.php;
 
-    location ~ /\.(ht|svn|git) { return 404; }
+    # enable compression
+    gzip on;
+    gzip_disable "msie6";
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xm>
 
-    if ($request_uri ~* \..*\/.*php) { return 404; }
-
-    location ~ /\.ht {
-        deny all;
-    }
-
-    location ~* \.(jp?g|js|css|png|jpg|jpeg|gif|ico)$ {
+    # cache media files
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
         expires max;
         log_not_found off;
+    }
+
+    # avoid processing of calls to non-existing static files by Yii
+    location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
+        try_files $uri =404;
     }
 
     location / {
@@ -32,35 +36,44 @@ server {
     }
 
     location ~ \.php$ {
-    	try_files $uri =404;
+        try_files $uri =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	    fastcgi_index index.php;
-	    include fastcgi.conf;
-	    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
     }
 
+    location ~ /\.ht {
+         deny all;
+    }
+
+    listen 443 ssl;
 }
 
-# redirect all requests to HTTPS
+# redirect http://, http://www to https://
 
 server {
-
-    listen 80;
-
-    server_name miraktien.com;
-
     if ($host = miraktien.com) {
         return 301 https://$host$request_uri;
     }
 
+    if ($host = www.miraktien.com) {
+        return 301 https://miraktien.com$request_uri;
+    }
+
+    server_name miraktien.com www.miraktien.com;
+    listen 80;
+    return 404;
 }
 
-# redirect all requests to non www
+# redirect https://www to https://
 
 server {
+    if ($host = www.miraktien.com) {
+        return 301 https://miraktien.com$request_uri;
+    }
 
-    server_name  www.miraktien.com;
-
-    rewrite ^(.*) http://miraktien.com$1 permanent;
-
+    server_name www.miraktien.com;
+    listen 443 ssl;
+    return 404;
 }

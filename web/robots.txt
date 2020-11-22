@@ -11,6 +11,7 @@ Disallow: /search
 Disallow: /?p=*
 Disallow: /category/*
 Disallow: /tag/*
+Allow: /post/index
 Crawl-Delay: 1
 Host: miraktien.com
 Sitemap: https://miraktien.com/sitemap.xml

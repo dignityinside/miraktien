@@ -5,10 +5,10 @@ use \yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PostSearch */
+/* @var $searchModel app\models\post\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = \Yii::$app->params['siteName'];
+$this->title = \Yii::$app->params['site']['name'];
 
 $this->registerMetaTag(
     [
@@ -21,7 +21,7 @@ $this->registerMetaTag(
 <div class="post-index">
 
     <div class="post-header text-center">
-        <h1><i class="fas fa-feather"></i> <?=\Yii::$app->params['siteName'];?></h1>
+        <h1><i class="fas fa-feather"></i> <?=\Yii::$app->params['site']['name'];?></h1>
     </div>
 
     <?php if ($dataProvider->getTotalCount() >= \Yii::$app->params['post']['pageSize']) : ?>

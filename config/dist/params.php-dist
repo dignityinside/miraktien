@@ -15,9 +15,13 @@ return [
     'reCAPTCHA.secretKey'           => '',
     'googleSiteVerification'        => '',
     'yandexVerification'            => '',
-    'siteName' => 'miraktien',
     'post' => [
         'pageSize' => 6,
+    ],
+    'site' => [
+        'author' => 'Мария',
+        'name'   => 'miraktien',
+        'url'    => 'https://miraktien.com',
     ],
     'social' => [
         'telegram' => 'miraktien',

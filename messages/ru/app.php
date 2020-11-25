@@ -78,7 +78,7 @@ return [
     'payment_type_paypal'         => 'Paypal',
     'payment_type_yandexmoney'    => 'Яндекс.Деньги',
     'payment_type_webmoney'       => 'Webmoney',
-    'payment_type_bank'           => 'Банковский перевод',
+    'payment_type_bank'           => 'Банковский счёт',
     'tariff_month'                => '1 месяц',
     'tariff_year'                 => '12 месяцев',
 ];

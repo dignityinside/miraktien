@@ -38,9 +38,9 @@ class User extends ActiveRecord implements IdentityInterface
     public const STATUS_PAID = 20;
 
     public const PAYMENT_TYPE_PAYPAL = 1;
-    public const PAYMENT_TYPE_YANDEXMONEY = 2;
-    public const PAYMENT_TYPE_WEBMONEY = 3;
-    public const PAYMENT_TYPE_BANK = 4;
+    public const PAYMENT_TYPE_BANK = 2;
+    //public const PAYMENT_TYPE_WEBMONEY = 3;
+    //public const PAYMENT_TYPE_YANDEXMONEY = 4;
 
     public const TARIFF_MONTH = 1;
     public const TARIFF_YEAR = 12;
@@ -50,9 +50,9 @@ class User extends ActiveRecord implements IdentityInterface
 
     public const ALLOWED_PAYMENT_TYPES = [
         self::PAYMENT_TYPE_PAYPAL,
-        self::PAYMENT_TYPE_YANDEXMONEY,
-        self::PAYMENT_TYPE_WEBMONEY,
         self::PAYMENT_TYPE_BANK,
+        // self::PAYMENT_TYPE_WEBMONEY,
+        // self::PAYMENT_TYPE_YANDEXMONEY,
     ];
 
     public const ALLOWED_PAYMENT_TARIFF = [
@@ -343,9 +343,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             self::PAYMENT_TYPE_PAYPAL      => \Yii::t('app', 'payment_type_paypal'),
-            self::PAYMENT_TYPE_YANDEXMONEY => \Yii::t('app', 'payment_type_yandexmoney'),
-            self::PAYMENT_TYPE_WEBMONEY    => \Yii::t('app', 'payment_type_webmoney'),
             self::PAYMENT_TYPE_BANK        => \Yii::t('app', 'payment_type_bank'),
+            // self::PAYMENT_TYPE_WEBMONEY    => \Yii::t('app', 'payment_type_webmoney'),
+            // self::PAYMENT_TYPE_YANDEXMONEY => \Yii::t('app', 'payment_type_yandexmoney'),
         ];
     }
 
@@ -397,17 +397,19 @@ class User extends ActiveRecord implements IdentityInterface
                 return !empty($premiumPaymentType['paypal']) ? $premiumPaymentType['paypal'] : '---';
             }
 
-            if ($paymentType === self::PAYMENT_TYPE_YANDEXMONEY) {
-                return !empty($premiumPaymentType['yandexmoney']) ? $premiumPaymentType['yandexmoney'] : '---';
-            }
-
-            if ($paymentType === self::PAYMENT_TYPE_WEBMONEY) {
-                return !empty($premiumPaymentType['webmoney']) ? $premiumPaymentType['webmoney'] : '---';
-            }
-
             if ($paymentType === self::PAYMENT_TYPE_BANK) {
                 return !empty($premiumPaymentType['bank']) ? $premiumPaymentType['bank'] : '---';
             }
+
+//            if ($paymentType === self::PAYMENT_TYPE_WEBMONEY) {
+//                return !empty($premiumPaymentType['webmoney']) ? $premiumPaymentType['webmoney'] : '---';
+//            }
+
+//            if ($paymentType === self::PAYMENT_TYPE_YANDEXMONEY) {
+//                return !empty($premiumPaymentType['yandexmoney']) ? $premiumPaymentType['yandexmoney'] : '---';
+//            }
+//
+
 
         }
 

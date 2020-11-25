@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 <?= Html::a(
-                    'Регистрация',
+                    \Yii::t('app', 'signup_title'),
                     ['site/signup'],
                     ['class' => 'btn btn-light']
                 ) ?>

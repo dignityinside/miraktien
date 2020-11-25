@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
     <?php if (UserPermissions::canAdminUsers()) : ?>
         <?= $form->field($model, 'status')->dropDownList(\app\models\User::getStatuses()) ?>
         <?= $form->field($model, 'premium')->dropDownList([0 => 'Нет', 1 => 'Да']) ?>
+        <?= $form->field($model, 'payment_type')->dropDownList(\app\models\User::getPaymentTypes()) ?>
+        <?= $form->field($model, 'payment_tariff')->dropDownList(\app\models\User::getTariff()) ?>
     <?php endif ?>
 
     <div class="form-group">

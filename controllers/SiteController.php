@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -106,6 +107,17 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            $user = $model->getUser();
+
+            if ($user !== null) {
+
+                if ($user->status === User::STATUS_WAIT) {
+                    return $this->redirect(['user/view', 'id' => $user->getId()]);
+                }
+
+            }
+
             return $this->goBack();
         }
 
@@ -119,7 +131,6 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -132,12 +143,16 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user, Yii::$app->params['user.rememberMeDuration'])) {
-                    return $this->goHome();
+                    return $this->redirect(['user/view', 'id' => $user->getId()]);
                 }
             }
         }

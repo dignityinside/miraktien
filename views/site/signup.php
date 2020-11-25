@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'username') ?>
             <?= $form->field($model, 'email') ?>
             <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'payment_type')->dropDownList(\app\models\User::getPaymentTypes()) ?>
+            <?= $form->field($model, 'payment_tariff')->dropDownList(\app\models\User::getTariff()) ?>
             <div class="captcha">
                 <?= $form->field($model, 'captcha', ['enableAjaxValidation' => false])->label(false)
                      ->widget('demi\recaptcha\ReCaptcha', ['siteKey' => Yii::$app->params['reCAPTCHA.siteKey']]) ?>

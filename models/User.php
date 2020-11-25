@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use DateTime;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -23,6 +24,9 @@ use yii\helpers\ArrayHelper;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $premium
+ * @property string $payment_type
+ * @property string $payment_tariff
+ * @property string $premium_until
  *
  * @property Auth[] $auths
  */
@@ -30,10 +34,32 @@ class User extends ActiveRecord implements IdentityInterface
 {
 
     public const STATUS_DELETED = 0;
-    public const STATUS_ACTIVE = 10;
+    public const STATUS_WAIT = 10;
+    public const STATUS_PAID = 20;
+
+    public const PAYMENT_TYPE_PAYPAL = 1;
+    public const PAYMENT_TYPE_YANDEXMONEY = 2;
+    public const PAYMENT_TYPE_WEBMONEY = 3;
+    public const PAYMENT_TYPE_BANK = 4;
+
+    public const TARIFF_MONTH = 1;
+    public const TARIFF_YEAR = 12;
 
     public const SCENARIO_UPDATE = 'update';
     public const SCENARIO_ADMIN = 'admin';
+
+    public const ALLOWED_PAYMENT_TYPES = [
+        self::PAYMENT_TYPE_PAYPAL,
+        self::PAYMENT_TYPE_YANDEXMONEY,
+        self::PAYMENT_TYPE_WEBMONEY,
+        self::PAYMENT_TYPE_BANK,
+    ];
+
+    public const ALLOWED_PAYMENT_TARIFF = [
+        self::TARIFF_MONTH,
+        self::TARIFF_YEAR,
+    ];
+
 
     public $avatar_url = '';
 
@@ -51,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
         ];
     }
 
@@ -61,8 +87,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_WAIT],
+            ['status', 'in', 'range' => [self:: STATUS_WAIT, self::STATUS_PAID, self::STATUS_DELETED]],
+            ['payment_type', 'in', 'range' => self::ALLOWED_PAYMENT_TYPES],
+            ['payment_tariff', 'in', 'range' => self::ALLOWED_PAYMENT_TARIFF],
             ['status', 'filter', 'filter' => 'intval'],
         ];
     }
@@ -72,7 +100,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function scenarios()
     {
-
         $scenarios = parent::scenarios();
 
         // $scenarios[self::SCENARIO_UPDATE] = [];
@@ -80,6 +107,9 @@ class User extends ActiveRecord implements IdentityInterface
         $scenarios[self::SCENARIO_ADMIN] = [
             'status',
             'premium',
+            'payment_tariff',
+            'payment_type',
+            'payment_until',
         ];
 
         return $scenarios;
@@ -90,7 +120,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id]);
     }
 
     /**
@@ -110,7 +140,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username]);
     }
 
     /**
@@ -122,17 +152,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByPasswordResetToken($token)
     {
-
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
 
-        return static::findOne(
-            [
-                'password_reset_token' => $token,
-                'status'               => self::STATUS_ACTIVE,
-            ]
-        );
+        return static::findOne(['password_reset_token' => $token]);
     }
 
     /**
@@ -144,7 +168,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function isPasswordResetTokenValid($token)
     {
-
         if (empty($token)) {
             return false;
         }
@@ -232,7 +255,10 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'id'             => 'ID',
@@ -241,9 +267,52 @@ class User extends ActiveRecord implements IdentityInterface
             'status'         => \Yii::t('app', 'status'),
             'created_at'     => \Yii::t('app', 'created_at'),
             'premium'        => \Yii::t('app', 'premium'),
+            'payment_tariff' => \Yii::t('app', 'payment_tariff'),
+            'payment_type'   => \Yii::t('app', 'payment_type'),
+            'premium_until'  => \Yii::t('app', 'premium_until'),
         ];
     }
 
+    /**
+     * @param bool $insert
+     *
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if (!$this->isNewRecord) {
+            if ($this->status === self::STATUS_PAID) {
+
+                $this->premium = 1;
+
+                if ((int) $this->payment_tariff === self::TARIFF_MONTH) {
+                    $this->premium_until = date('Y-m-d H:i:s', strtotime('+30 days'));
+                } elseif ((int) $this->payment_tariff === self::TARIFF_YEAR) {
+                    $this->premium_until = date('Y-m-d H:i:s', strtotime('+1 year'));
+                } else {
+                    $this->premium_until = null;
+                }
+
+            } else {
+                $this->premium = 0;
+                $this->premium_until = null;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Return status label
+     *
+     * @return mixed|null
+     *
+     * @throws \Exception
+     */
     public function getStatusLabel()
     {
         $statuses = self::getStatuses();
@@ -251,12 +320,118 @@ class User extends ActiveRecord implements IdentityInterface
         return ArrayHelper::getValue($statuses, $this->status);
     }
 
+    /**
+     * List of statuses
+     *
+     * @return array
+     */
     public static function getStatuses()
     {
         return [
-            self::STATUS_DELETED => 'Delete',
-            self::STATUS_ACTIVE  => 'Active',
+            self::STATUS_PAID    => \Yii::t('app', 'user_status_paid'),
+            self::STATUS_WAIT    => \Yii::t('app', 'user_status_wait'),
+            self::STATUS_DELETED => \Yii::t('app', 'user_status_deleted'),
         ];
+    }
+
+    /**
+     * List of payment types
+     *
+     * @return array
+     */
+    public static function getPaymentTypes()
+    {
+        return [
+            self::PAYMENT_TYPE_PAYPAL      => \Yii::t('app', 'payment_type_paypal'),
+            self::PAYMENT_TYPE_YANDEXMONEY => \Yii::t('app', 'payment_type_yandexmoney'),
+            self::PAYMENT_TYPE_WEBMONEY    => \Yii::t('app', 'payment_type_webmoney'),
+            self::PAYMENT_TYPE_BANK        => \Yii::t('app', 'payment_type_bank'),
+        ];
+    }
+
+    /**
+     * List of tariffs
+     *
+     * @return array
+     */
+    public static function getTariff(): array
+    {
+        return [
+            self::TARIFF_MONTH => \Yii::t('app', 'tariff_month'),
+            self::TARIFF_YEAR  => \Yii::t('app', 'tariff_year'),
+        ];
+    }
+
+    /**
+     * Returns premium price by tariff
+     *
+     * @param int $paymentTariff
+     *
+     * @return string
+     */
+    public static function getPremiumPriceByTariff(int $paymentTariff): string
+    {
+        if ($paymentTariff === self::TARIFF_MONTH) {
+            return Yii::$app->formatter->asCurrency(\Yii::$app->params['premium']['price']);
+        }
+
+        $yearPrice = \Yii::$app->params['premium']['price'] * (12 - \Yii::$app->params['premium']['freeMonth']);
+
+        return Yii::$app->formatter->asCurrency($yearPrice);
+    }
+
+    /**
+     * Returns payment wallet
+     *
+     * @param int $paymentType
+     *
+     * @return string
+     */
+    public static function getPaymentWallet(int $paymentType): string
+    {
+        if (isset(Yii::$app->params['premium']['paymentType'])) {
+
+            $premiumPaymentType = Yii::$app->params['premium']['paymentType'];
+
+            if ($paymentType === self::PAYMENT_TYPE_PAYPAL) {
+                return !empty($premiumPaymentType['paypal']) ? $premiumPaymentType['paypal'] : '---';
+            }
+
+            if ($paymentType === self::PAYMENT_TYPE_YANDEXMONEY) {
+                return !empty($premiumPaymentType['yandexmoney']) ? $premiumPaymentType['yandexmoney'] : '---';
+            }
+
+            if ($paymentType === self::PAYMENT_TYPE_WEBMONEY) {
+                return !empty($premiumPaymentType['webmoney']) ? $premiumPaymentType['webmoney'] : '---';
+            }
+
+            if ($paymentType === self::PAYMENT_TYPE_BANK) {
+                return !empty($premiumPaymentType['bank']) ? $premiumPaymentType['bank'] : '---';
+            }
+
+        }
+
+        return '---';
+    }
+
+    /**
+     * @param $premiumUntil
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
+    public function isExpired($premiumUntil): bool
+    {
+
+        if ($premiumUntil === null) {
+            return true;
+        }
+
+        $today = new DateTime(date("Y-m-d H:i:s"));
+        $expired = new DateTime($premiumUntil);
+
+        return $expired->getTimestamp() < $today->getTimestamp();
     }
 
     /**

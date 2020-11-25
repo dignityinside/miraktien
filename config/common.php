@@ -52,5 +52,9 @@ return [
             ],
             'baseUrl' => 'https://miraktien.com',
         ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'locale' => 'ru-RU'
+        ],
     ],
 ];

@@ -144,7 +144,7 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
 
     $this->endBody();
 
-    if (YII_ENV === YII_ENV_PROD) {
+    if (YII_ENV == YII_ENV_PROD) {
         echo $this->render('partials/counter.php');
     }
 

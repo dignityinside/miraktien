@@ -15,6 +15,7 @@ return [
     'reCAPTCHA.secretKey'           => '',
     'googleSiteVerification'        => '',
     'yandexVerification'            => '',
+    'yandexMetrikaId'               => '',
     'post' => [
         'pageSize' => 6,
     ],

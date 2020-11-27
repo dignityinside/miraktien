@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 ?>
 <div class="user-index">
 

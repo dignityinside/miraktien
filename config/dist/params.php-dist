@@ -19,9 +19,10 @@ return [
         'pageSize' => 6,
     ],
     'site' => [
-        'author' => 'Мария',
-        'name'   => 'miraktien',
-        'url'    => 'https://miraktien.com',
+        'author'      => 'Мария',
+        'name'        => 'miraktien',
+        'url'         => 'https://miraktien.com/',
+        'description' => '',
     ],
     'social' => [
         'telegram' => 'miraktien',

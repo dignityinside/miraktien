@@ -90,7 +90,6 @@ class PostController extends Controller
      */
     public function actionAdmin()
     {
-
         $searchModel = new PostSearch();
 
         $dataProvider = $searchModel->adminSearch(Yii::$app->request->queryParams);
@@ -135,22 +134,16 @@ class PostController extends Controller
     /**
      * Creates a new Post model
      *
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'admin' page.
      *
      * @return mixed
      */
     public function actionCreate()
     {
-
         $model = new Post();
 
-        if (UserPermissions::canAdminPost()) {
-            $model->scenario = Material::SCENARIO_ADMIN;
-        } else {
-            $model->scenario = Material::SCENARIO_CREATE;
-        }
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', 'Запись добавлена!');
             return $this->redirect(['post/update', 'id' => $model->id]);
         }
 
@@ -160,7 +153,7 @@ class PostController extends Controller
     /**
      * Updates an existing Post model
      *
-     * If update is successful, the browser will be redirected to the 'view' page
+     * If update is successful, the browser will be redirected to the 'admin' page
      *
      * @param integer $id
      *
@@ -172,23 +165,13 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
 
-        if (!UserPermissions::canEditPost($model)) {
-            throw new ForbiddenHttpException('Вы не можете редактировать эту запись.');
-        }
-
-        if (UserPermissions::canAdminPost()) {
-            $model->scenario = Material::SCENARIO_ADMIN;
-        } else {
-            $model->scenario = Material::SCENARIO_UPDATE;
-        }
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', 'Запись сохранена!');
+
             return $this->redirect(['post/update', 'id' => $model->id]);
         }
 
-        return $this->render(
-        'update', ['model' => $model]
-        );
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -218,7 +201,6 @@ class PostController extends Controller
      */
     public function actionTag($tagName)
     {
-
         $tag = Tag::findOne(['slug' => $tagName]);
 
         if (!$tag) {
@@ -234,7 +216,7 @@ class PostController extends Controller
         return $this->render('tag', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'tagName'      => $tag->name
+            'tag'          => $tag
         ]);
     }
 
@@ -249,7 +231,6 @@ class PostController extends Controller
      */
     public function actionCategory($categoryName)
     {
-
         $category = Category::findOne([
             'slug' => $categoryName,
             'material_id' => Material::MATERIAL_POST_ID
@@ -266,9 +247,9 @@ class PostController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('category', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'categoryName' => $category->name
+            'category'     => $category
         ]);
     }
 

@@ -11,6 +11,7 @@ use yii\helpers\Html;
 $this->title = 'Ошибка 404 - Нет такой страницы';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 ?>
 <div class="site-error">
     <h1><?= Html::encode($this->title) ?></h1>

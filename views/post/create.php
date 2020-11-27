@@ -16,6 +16,7 @@ if (UserPermissions::canAdminPost()) {
 
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex']);
 ?>
 <div class="post-create">
 

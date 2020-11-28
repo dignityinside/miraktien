@@ -3,6 +3,7 @@
 namespace app\models\post;
 
 use Yii;
+use yii\base\Model;
 use yii\db\ActiveQuery;
 use app\models\Material;
 use Dignity\TranslitHelper;
@@ -76,25 +77,7 @@ class Post extends Material
 
         $scenarios = parent::scenarios();
 
-        $scenarios[Material::SCENARIO_CREATE] = [
-            'title',
-            'content',
-            'allow_comments',
-            'status_id',
-            'slug',
-            'category_id'
-        ];
-
-        $scenarios[Material::SCENARIO_UPDATE] = [
-            'title',
-            'content',
-            'allow_comments',
-            'status_id',
-            'slug',
-            'category_id'
-        ];
-
-        $scenarios[Material::SCENARIO_ADMIN] = [
+        $scenarios[Model::SCENARIO_DEFAULT] = [
             'title',
             'content',
             'allow_comments',

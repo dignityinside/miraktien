@@ -4,7 +4,7 @@ body {
     background: #edeef0;
     font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .footer {
@@ -62,7 +62,7 @@ pre {
     padding: 0 20px 10px 20px;
     border: solid 1px #fff;
     overflow-wrap: break-word;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.56;
     margin-bottom: 20px;
 }

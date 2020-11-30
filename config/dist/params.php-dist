@@ -26,8 +26,18 @@ return [
         'description' => '',
     ],
     'social' => [
-        'telegram' => 'miraktien',
-        'instagram' => 'miraktien',
+        'telegram' => [
+            'title' => 'Telegram',
+            'url' => 'https://t.me/miraktien',
+            'bgColor' => '#36a7e5',
+            'faClass' => 'fa fa-telegram',
+        ],
+        'instagram' => [
+            'title' => 'Instagram',
+            'url' => 'https://instagram.com/miraktien',
+            'bgColor' => '#e31e4e',
+            'faClass' => 'fab fa-instagram',
+        ],
     ],
     'premium' => [
         'price' => 599,

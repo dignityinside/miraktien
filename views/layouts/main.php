@@ -131,11 +131,12 @@ $yandexVerification = \Yii::$app->params['yandexVerification'];
 
     <footer>
         <div class="container footer text-center">
-            <p>&copy; <?= date('Y') ?> <?= \Yii::$app->params['site']['name'] ?> |
+            <p>&copy; <?= date('Y') ?> Все права защищены. <?= \Yii::$app->params['site']['name'] ?> |
                 <?= Html::a(\Yii::t('app', 'footer_about_link'), '/about'); ?> |
                 <?= Html::a(\Yii::t('app', 'footer_premium_link'), '/premium'); ?> |
                 <?= Html::a(\Yii::t('app', 'footer_contact_link'), '/contact'); ?>
             </p>
+            <p style="font-style: italic; font-size: 14px; color: rgb(98, 98, 107);">Все материалы на этом сайте не являются индивидуальной рекомендацией для инвестиции.</p>
         </div>
     </footer>
 </div>

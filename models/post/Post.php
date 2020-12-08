@@ -198,25 +198,21 @@ class Post extends Material
     public function isPremium(): bool
     {
 
-        if ($this->premium) {
+        if (\Yii::$app->user->identity === null) {
+            return false;
+        }
 
-            if (\Yii::$app->user->identity === null) {
+        if (!\Yii::$app->user->identity->premium) {
+            return false;
+        }
+
+        if (isset(\Yii::$app->user->identity)) {
+
+            /** @var User $user */
+            $user = User::findOne(\Yii::$app->user->identity->getId());
+
+            if ($user->isExpired($user->premium_until)) {
                 return false;
-            }
-
-            if (!\Yii::$app->user->identity->premium) {
-                return false;
-            }
-
-            if (isset(\Yii::$app->user->identity)) {
-
-                /** @var User $user */
-                $user = User::findOne(\Yii::$app->user->identity->getId());
-
-                if ($user->isExpired($user->premium_until)) {
-                    return false;
-                }
-
             }
 
         }

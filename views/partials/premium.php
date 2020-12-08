@@ -3,9 +3,18 @@
 use yii\helpers\Html;
 use app\models\User;
 
+/** @var bool $premium */
+
 ?>
 <div class="premium">
-    <p class="premium__header">Продолжение доступно только для премиум-пользователя</p>
+    <?php if ($premium) : ?>
+        <p class="premium__header">Продолжение доступно только для премиум-пользователя</p>
+        <p>Оформи премиум прямо сейчас<br> и открой доступ к этому и другим эксклюзивным материалам</p>
+    <?php else : ?>
+        <p class="premium__header">Понравился обзор компании? Хочешь получать каждые 10 дней новый?</p>
+        <p>Тогда прямо сейчас получи премиум-доступ. Ты станешь топ-информированным и успешным инвестором, сможешь самостоятельно составить сбалансированный портфель ценных бумаг.</p>
+    <?php endif; ?>
+
     <div class="premium__price">
         <div class="premium_price__month">
             <span class="premium_price__length">1 Месяц</span>

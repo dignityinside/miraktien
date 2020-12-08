@@ -34,21 +34,13 @@ $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::to(['post/view', 's
         <?= Text::hidecut('[cut]',
             Text::hideCut('[premium]', HtmlPurifier::process(Markdown::process($model->content, 'gfm')))
         ); ?>
-        <?php if ($model->ontop) : ?>
-            <hr>
-            <p style="text-align: center">
-                <?= \Yii::t('app', 'subscribe_text') ?>
-            </p>
-            <div class="ml-form-embed"
-                 data-account="<?= \Yii::$app->params['subscribe']['dataAccount']; ?>"
-                 data-form="<?= \Yii::$app->params['subscribe']['dataFormPostBottom']; ?>">
-            </div>
-        <?php endif; ?>
     <?php else : ?>
         <?= Text::hidecut('[cut]',
             Text::cut('[premium]', HtmlPurifier::process(Markdown::process($model->content, 'gfm')))
         ); ?>
-        <?= $this->render('../partials/premium'); ?>
+        <?php if ($model->ontop) : ?>
+            <?= $this->render('../partials/premium', ['premium' => $model->premium]); ?>
+        <?php endif; ?>
     <?php endif; ?>
 
     <?php if ($model->show_share_buttons) : ?>

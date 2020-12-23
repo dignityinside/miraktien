@@ -50,30 +50,30 @@ server {
     listen 443 ssl;
 }
 
-# redirect http://, http://www to https://
+# http www to https
 
 server {
-    if ($host = miraktien.com) {
+    server_name www.miraktien.com;
+    return 301 https://miraktien.com$request_uri;
+    listen 443 ssl;
+}
+
+# http to https
+
+server {
+    listen 80;
+    server_name miraktien.com;
+    return 301 https://miraktien.com$request_uri;
+}
+
+# www to https
+
+server {
+    if ($host = www.miraktien.com) {
         return 301 https://$host$request_uri;
     }
 
-    if ($host = www.miraktien.com) {
-        return 301 https://miraktien.com$request_uri;
-    }
-
-    server_name miraktien.com www.miraktien.com;
-    listen 80;
-    return 404;
-}
-
-# redirect https://www to https://
-
-server {
-    if ($host = www.miraktien.com) {
-        return 301 https://miraktien.com$request_uri;
-    }
-
     server_name www.miraktien.com;
-    listen 443 ssl;
+    listen 80;
     return 404;
 }
